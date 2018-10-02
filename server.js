@@ -4,7 +4,8 @@ const port = process.env.PORT || 3000;
 const app = express();
 var exphbs = require('express-handlebars');
 const bodyParser = require('body-parser'); // INITIALIZE BODY-PARSER AND ADD IT TO APP
-const GratefulNugget = require('../models/grateful-nugget.js')
+const GratefulNugget = require('./models/grateful-nugget.js')
+const mongoose = require('mongoose');
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -25,3 +26,22 @@ app.post('/grateful-nuggets', (req, res) => {
             console.log(error.message);
         });
 });
+
+// INDEX
+app.get('/', (req, res) => {
+    //start of the promise
+    GratefulNugget.find()
+        .then(reviews => {
+            res.render('index', {
+                // reviews: reviews
+            });
+        })
+        // if not found
+        .catch(err => {
+            console.log(err);
+        })
+})
+
+module.exports = app.listen(port, () => {
+  console.log('App listening on port 3000!')
+})
