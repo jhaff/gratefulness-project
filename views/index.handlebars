@@ -58,7 +58,7 @@ $('form').each(function() {
                     <form method="POST" action="/nuggets">
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
-                                <input type="text" class="form-control" id="description" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"{{nugget.description}}>
+                                <input type="text" class="form-control" name ="description" id="nugget-description" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{nugget.description}}">
                                 <input type="submit" style="visibility: hidden;" />
 
                             </div>
