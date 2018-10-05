@@ -38,7 +38,7 @@ input{
 $(function() { // from https://stackoverflow.com/questions/14826757/how-can-one-submit-a-form-without-using-submit-button
 $('form').each(function() {
     $('input').keypress(function(e) {
-        // Enter pressed?
+        // Was enter pressed?
         if(e.which == 10 || e.which == 13) {
             this.form.submit();
         }
@@ -55,10 +55,10 @@ $('form').each(function() {
             <div class="h-100 row align-items-center">
                 <div class="col" style="background:none">
 
-                    <form method="POST" action="/grateful-nuggets">
+                    <form method="POST" action="/nuggets">
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
-                                <input type="text" class="form-control" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                                <input type="text" class="form-control" id="description" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"{{nugget.description}}>
                                 <input type="submit" style="visibility: hidden;" />
 
                             </div>

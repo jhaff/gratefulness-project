@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 var exphbs = require('express-handlebars');
 const bodyParser = require('body-parser'); // INITIALIZE BODY-PARSER AND ADD IT TO APP
-const GratefulNugget = require('./models/grateful-nugget.js')
+const Nugget = require('./models/nugget.js')
 const mongoose = require('mongoose');
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -17,26 +17,40 @@ const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/gratefuln
 mongoose.connect(mongoUri, { useNewUrlParser: true });
 
 // CREATE
-app.post('/grateful-nuggets', (req, res) => {
+app.post('/nuggets', (req, res) => {
     console.log(req.body);
-    GratefulNugget.create(req.body)
+    Nugget.create(req.body)
         .then(nugget => {
             console.log(nugget)
+            res.redirect(`/`);
         }).catch(error => {
             console.log(error.message);
         });
 });
 
-// INDEX
+// HOME
 app.get('/', (req, res) => {
     //start of the promise
-    GratefulNugget.find()
+    Nugget.find()
         .then(reviews => {
             res.render('index', {
                 // reviews: reviews
             });
         })
         // if not found
+        .catch(err => {
+            console.log(err);
+        })
+})
+
+//INDEX
+app.get('/nuggets', (req, res) => {
+    Nugget.find()
+        .then(nuggets => {
+            res.render('nuggets-index', {
+                nuggets: nuggets
+            });
+        })
         .catch(err => {
             console.log(err);
         })
