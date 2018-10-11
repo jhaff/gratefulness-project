@@ -1,10 +1,12 @@
-const express = require('express')
-const methodOverride = require('method-override')
+//TODO: Figure out package.json
+
+const express = require('express');
+const methodOverride = require('method-override');
 const port = process.env.PORT || 3000;
 const app = express();
 var exphbs = require('express-handlebars');
 const bodyParser = require('body-parser'); // INITIALIZE BODY-PARSER AND ADD IT TO APP
-const Nugget = require('./models/nugget.js')
+const Nugget = require('./models/nugget.js');
 const mongoose = require('mongoose');
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -21,11 +23,30 @@ app.post('/nuggets', (req, res) => {
     console.log(req.body);
     Nugget.create(req.body)
         .then(nugget => {
-            console.log(nugget)
+            console.log(nugget);
             res.redirect(`/`);
         }).catch(error => {
             console.log(error.message);
         });
+});
+
+// SHOW
+app.get('/nuggets/:id', (req, res) => {
+    // find review
+    Nugget.findById(req.params.id).then(review => {
+        // fetch its comments
+        Comment.find({
+            nuggetId: req.params.id
+        }).then(comments => {
+            // respond with the template with both values
+            res.render('nuggets-show', {
+                comments: comments
+            })
+        })
+    }).catch((err) => {
+        // catch errors
+        console.log(err.message)
+    });
 });
 
 // HOME
