@@ -17,6 +17,8 @@ const adminController = require('./controllers/admin.js')
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+app.use(methodOverride('_method'));
+
 // The following line must appear AFTER const app = express() and before routes!
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -38,6 +40,28 @@ app.post('/nuggets', (req, res) => {
         });
 });
 
+// SHOW FOR ADMIN
+app.get('/nuggets/:id/admin', (req, res) => {
+    // find review
+    Nugget.findById(req.params.id).then(nugget => {
+        // fetch its comments
+        Comment.find({
+            nuggetId: req.params.id
+        }).then(comments => {
+            // respond with the template with both values
+            res.render('nuggets-show-admin', {
+                nugget: nugget,
+                comments: comments,
+                nuggetId: req.params.id
+            })
+        })
+    }).catch((err) => {
+        // catch errors
+        console.log(err.message)
+    });
+});
+
+
 // SHOW
 app.get('/nuggets/:id', (req, res) => {
     // find review
@@ -58,6 +82,16 @@ app.get('/nuggets/:id', (req, res) => {
         console.log(err.message)
     });
 });
+
+app.delete('/nuggets/:id/', function(req, res) {
+    console.log("DELETE nugget")
+    Nugget.findByIdAndRemove(req.params.id).then((nugget) => {
+        res.redirect(`/nuggets/`);
+    }).catch((err) => {
+        console.log(err.message);
+    })
+})
+
 
 // HOME
 app.get('/', (req, res) => {
