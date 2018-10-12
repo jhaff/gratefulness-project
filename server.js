@@ -8,12 +8,17 @@ var exphbs = require('express-handlebars');
 const bodyParser = require('body-parser'); // INITIALIZE BODY-PARSER AND ADD IT TO APP
 const Nugget = require('./models/nugget.js');
 const mongoose = require('mongoose');
+const Comment = require('./models/comment')
+const commentsController = require('./controllers/comments.js')
+
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 // The following line must appear AFTER const app = express() and before routes!
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(commentsController);
 
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/gratefulness-project';
 mongoose.connect(mongoUri, { useNewUrlParser: true });
@@ -33,14 +38,16 @@ app.post('/nuggets', (req, res) => {
 // SHOW
 app.get('/nuggets/:id', (req, res) => {
     // find review
-    Nugget.findById(req.params.id).then(review => {
+    Nugget.findById(req.params.id).then(nugget => {
         // fetch its comments
         Comment.find({
             nuggetId: req.params.id
         }).then(comments => {
             // respond with the template with both values
             res.render('nuggets-show', {
-                comments: comments
+                nugget: nugget,
+                comments: comments,
+                nuggetId: req.params.id
             })
         })
     }).catch((err) => {

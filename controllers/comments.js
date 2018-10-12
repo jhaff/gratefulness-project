@@ -2,12 +2,11 @@ const mongoose = require('mongoose');
 const Nugget = require('../models/nugget.js');
 const express = require('express');
 const app = express();
+const Comment = require('../models/comment')
 
 mongoose.connect('mongodb://localhost:27017/gratefulness-project', {
     useMongoClient: true
 });
-
-
 
     //NEW
     app.get('/nuggets/:nuggetId/comments/new', (req, res) => {
@@ -15,12 +14,12 @@ mongoose.connect('mongodb://localhost:27017/gratefulness-project', {
     })
 
     // CREATE
-    app.post('/movies/:nuggetId/comments', (req, res) => {
-        console.log(req.body);
-        Review.create(req.body)
-            .then(review => {
-                console.log(review)
-                res.redirect(`/movies/${req.params.movieId}/reviews/${review._id}`);
+    app.post('/nuggets/:nuggetId/comments', (req, res) => {
+        Comment.create(req.body)
+            .then(comment => {
+                console.log(comment)
+                console.log(req.params.nuggetId)
+                res.redirect(`/nuggets/${req.params.nuggetId}`);
             }).catch(error => {
                 console.log(error.message);
             });

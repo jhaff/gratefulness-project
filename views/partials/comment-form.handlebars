@@ -1,9 +1,7 @@
 <!-- views/partials/comment-form.handlebars -->
 
-<form method="POST" action="/nuggets/:nuggetId/comments">
-    <input type="hidden" value="{{nugget._id}}" name="nuggetId">
-
-    <input type="hidden" value="{{review.movieId}}" name="movieId">
+<form method="POST" action="/nuggets/{{nugget._id}}/comments">
+    <input type="hidden" name="nuggetId" value="{{nugget._id}}" >
 
     <fieldset>
         <legend>Add a Comment</legend>
