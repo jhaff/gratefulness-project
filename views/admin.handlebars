@@ -1,0 +1,27 @@
+<h2>Admin</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">_id</th>
+            <th scope="col">Description</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each nuggets}}
+            <tr id="admin-{{this._id}}">
+                <th scope="row"><a href="../nuggets/{{this._id}}">{{this._id}}</th>
+                <td>{{this.description}}</td>
+
+                <!-- <td><a href="../nuggets/{{this._id}}">{{this.nuggetId}}</a></td> -->
+                <td><button class="btn-link" type="button" id="deleteReview{{@index}}" onclick="deleteReview({{@index}});" review-id={{this._id}}>Delete</button>
+                <td>
+                    <div id="comments">
+                        {{#each comments}}
+                            {{> comment}}
+                        {{/each}}
+                    </div>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

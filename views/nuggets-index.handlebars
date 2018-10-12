@@ -1,4 +1,16 @@
+<style>
+    .centered{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width:100%;
+        height:100%;
+    }
+</style>
+
+<div class="centered">
 <h1>Nuggets</h1>
 {{#each nuggets}}
 <h2><a href="/nuggets/{{this._id}}">{{this.description}}</a></h2>
 {{/each}}
+</div>

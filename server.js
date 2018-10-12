@@ -10,6 +10,8 @@ const Nugget = require('./models/nugget.js');
 const mongoose = require('mongoose');
 const Comment = require('./models/comment')
 const commentsController = require('./controllers/comments.js')
+const adminController = require('./controllers/admin.js')
+
 
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -19,6 +21,7 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(commentsController);
+app.use(adminController);
 
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/gratefulness-project';
 mongoose.connect(mongoUri, { useNewUrlParser: true });
