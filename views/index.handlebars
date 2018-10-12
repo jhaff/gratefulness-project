@@ -31,6 +31,7 @@ input{
 }
 .input-group-prepend{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: auto;
 }
@@ -38,11 +39,20 @@ input{
     align-self: center;
     display: block;
     margin: auto;
+    width: 300px;
+    display: flex;
+    justify-content: center;
 }
 body {
     height: 100%;
     width: 100%;
     display: flex;
+}
+#nuggetsbutton{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
 }
 
 
@@ -81,7 +91,12 @@ $('form').each(function() {
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
                                 <input type="text" class="form-control" name ="description" id="nugget-description" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{nugget.description}}">
-                                <input type="submit" style="visibility: hidden;" />
+                                <input type="submit" style="visibility: hidden; display:none" />
+
+                                <a id="nuggetsbutton" href="/nuggets">
+                                    <button type="button" id="nuggets" class="btn btn-primary">What're others grateful for?</button>
+
+                                </a>
 
                             </div>
                         </div>
