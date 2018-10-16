@@ -12,8 +12,6 @@
             <tr id="admin-{{this._id}}">
                 <th scope="row"><a href="../nuggets/{{this._id}}/admin">{{this._id}}</th>
                 <td>{{this.description}}</td>
-
-                <!-- <td><a href="../nuggets/{{this._id}}">{{this.nuggetId}}</a></td> -->
                 <td><button class="btn-link" type="button" id="deleteReview{{@index}}" onclick="deleteReview({{@index}});" review-id={{this._id}}>Delete</button>
                 <td>
                     <div id="comments">

@@ -2,7 +2,7 @@ let newNuggetForm = document.getElementById("newNugget");
 newNuggetForm.addEventListener("submit", e => {
 
     e.preventDefault(); //prevents browser from refreshing
-    return false;
+
     var item = $("input[id='nugget-description']").val();
 
     if ($.trim(item) === '') {
