@@ -1,19 +1,35 @@
-$('form').each(function() {
-    $('input').keypress(function(e) {
-        // Was enter pressed?
-        if(e.which == 10 || e.which == 13) {
-            var item = $("input[id='nugget-description']").val();
-            console.log("hello");
-            if ($.trim(item) === '') {
-                alert("Please Enter Something!");
-                return false;
-            }
-            this.form.submit();
-        }
-    });
+let newNuggetForm = document.getElementById("newNugget");
+newNuggetForm.addEventListener("submit", e => {
 
-    $('input[type=submit]').hide();
-   });
+    e.preventDefault(); //prevents browser from refreshing
+    return false;
+    var item = $("input[id='nugget-description']").val();
+
+    if ($.trim(item) === '') {
+        alert("Please Enter Something!");
+    } else {
+        let nugget = $(newNuggetForm).serialize();
+
+        axios.post(`/nuggets`, nugget)
+            .then(function(response) {
+                console.log(response);
+            }).catch(function(error){
+                console.log(error);
+            });
+    }
+});
+
+
+// $('form').each(function() {
+//     $('input').keypress(function(e) {
+//         // Was enter pressed?
+
+//             // this.form.submit();
+//         }
+//     });
+//
+//     $('input[type=submit]').hide();
+//    });
 
    var map = L.map('map').setView([51.505, -0.09], 3);
 

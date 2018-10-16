@@ -31,14 +31,11 @@ mongoose.connect(mongoUri, { useNewUrlParser: true });
 
 // CREATE
 app.post('/nuggets', (req, res) => {
-    console.log(req.body);
-    Nugget.create(req.body)
-        .then(nugget => {
-            console.log(nugget);
-            res.redirect(`/`);
-        }).catch(error => {
-            console.log(error.message);
-        });
+    Nugget.create(req.body).then(nugget => {
+      res.status(200).send({ nugget: nugget });
+    }).catch((err) => {
+      res.status(400).send({ err: err })
+    })
 });
 
 // SHOW FOR ADMIN
