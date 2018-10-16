@@ -8,6 +8,11 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+
 </head>
 
 <body style="background-image:url(https://images.unsplash.com/photo-1502261159926-e31d770eb6e1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efa0661e53144c027f5cea31760a31a&auto=format&fit=crop&w=2081&q=80">
@@ -22,6 +27,7 @@
   background: none;
   height: 500px;
   width: 500px;
+  z-index: 401;
 }
 input{
     border-radius: 20px;
@@ -44,74 +50,59 @@ input{
     justify-content: center;
 }
 body {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     display: flex;
 }
 #nuggetsbutton{
     display: flex;
     justify-content: center;
     padding: 10px;
-
 }
+#map {
+    height: 100%;
+    width: 100%;
+}
+
 
 
 </style>
 
-<script type="text/javascript">
-// Using jQuery.
+        <div id="map">
+            <div class="jumbotron">
+                <div class="h-100 row align-items-center">
+                    <div class="col" style="background:none">
 
-$(function() { // from https://stackoverflow.com/questions/14826757/how-can-one-submit-a-form-without-using-submit-button
-$('form').each(function() {
-    $('input').keypress(function(e) {
-        // Was enter pressed?
-        if(e.which == 10 || e.which == 13) {
-            var item = $("input[id='nugget-description']").val();
-            console.log("hello");
-            if ($.trim(item) === '') {
-                alert("Please Enter Something!");
-                return false;
-            }
-            this.form.submit();
-        }
-    });
+                        <form method="POST" action="/nuggets">
+                            <div class="input-group input-group-lg">
+                                <div class="input-group-prepend">
+                                    <input type="text" class="form-control" name ="description" id="nugget-description" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{nugget.description}}">
+                                    <input type="submit" style="visibility: hidden; display:none" />
 
-    $('input[type=submit]').hide();
-   });
-});
-</script>
+                                    <a id="nuggetsbutton" href="/nuggets">
+                                        <button type="button" id="nuggets" class="btn btn-primary">What're others grateful for?</button>
 
+                                    </a>
 
-    <div class="container">
-        <div class="jumbotron">
-            <div class="h-100 row align-items-center">
-                <div class="col" style="background:none">
-
-                    <form method="POST" action="/nuggets">
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                                <input type="text" class="form-control" name ="description" id="nugget-description" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{nugget.description}}">
-                                <input type="submit" style="visibility: hidden; display:none" />
-
-                                <a id="nuggetsbutton" href="/nuggets">
-                                    <button type="button" id="nuggets" class="btn btn-primary">What're others grateful for?</button>
-
-                                </a>
-
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+      integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+      crossorigin=""></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="/public/javascript/scripts.js"></script>
+
 </body>
 
 </html>

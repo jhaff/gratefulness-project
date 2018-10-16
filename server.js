@@ -21,6 +21,7 @@ app.use(methodOverride('_method'));
 
 // The following line must appear AFTER const app = express() and before routes!
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/public', express.static('./public'))
 
 app.use(commentsController);
 app.use(adminController);
