@@ -32,7 +32,7 @@ mongoose.connect(mongoUri, { useNewUrlParser: true });
 // CREATE
 app.post('/nuggets', (req, res) => {
     Nugget.create(req.body).then(nugget => {
-      res.status(200).send({ nugget: nugget });
+      res.status(200).send({ nugget: comment });
     }).catch((err) => {
       res.status(400).send({ err: err })
     })

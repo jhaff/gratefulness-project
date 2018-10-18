@@ -34,7 +34,8 @@ newNuggetForm.addEventListener("submit", e => {
                 p = new L.Popup({ autoClose: false, closeOnClick: false })
                         .setContent(obj.popup)
                         .setLatLng(obj.pos);
-            m.bindPopup(p);
+            m.bindPopup(p).openPopup();
+
 
         axios.post(`/nuggets`, nugget)
             .then(function(response) {

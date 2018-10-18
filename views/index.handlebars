@@ -1,110 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+<!-- <div style="background-image:url(https://images.unsplash.com/photo-1502261159926-e31d770eb6e1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efa0661e53144c027f5cea31760a31a&auto=format&fit=crop&w=2081&q=80"> -->
+<div class="full-page-container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Gratefulness.io</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="/nuggets">Inspiration</a>
+                <a class="nav-item nav-link" href="/admin">(Admin)</a>
+            </div>
+        </div>
+    </nav>
+    <div id="map">
+        <div class="jumbotron">
+            <div class="h-100 row align-items-center">
+                <div class="col" style="background:none">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+                    <form method="#" id="newNugget">
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <input type="text" class="form-control" name ="description" id="nugget-description" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{nugget.description}}">
+                                <input type="submit" style="visibility: hidden; display:none" />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
-  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-  crossorigin=""/>
-
-</head>
-
-<body style="background-image:url(https://images.unsplash.com/photo-1502261159926-e31d770eb6e1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9efa0661e53144c027f5cea31760a31a&auto=format&fit=crop&w=2081&q=80">
-
-<style>
-
-.jumbotron {
-  position: absolute;
-  top: 50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  background: none;
-  height: 500px;
-  width: 500px;
-  z-index: 401;
-}
-input{
-    border-radius: 20px;
-    radius: 20px;
-    width: 300px;
-    /* Why doesn't this work right??^ */
-}
-.input-group-prepend{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-}
-.form-control {
-    align-self: center;
-    display: block;
-    margin: auto;
-    width: 300px;
-    display: flex;
-    justify-content: center;
-}
-body {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-}
-#nuggetsbutton{
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-}
-#map {
-    height: 100%;
-    width: 100%;
-}
-
-
-
-</style>
-
-        <div id="map">
-            <div class="jumbotron">
-                <div class="h-100 row align-items-center">
-                    <div class="col" style="background:none">
-
-                        <form method="#" id="newNugget">
-                            <div class="input-group input-group-lg">
-                                <div class="input-group-prepend">
-                                    <input type="text" class="form-control" name ="description" id="nugget-description" placeholder="I'm grateful for..." aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" value="{{nugget.description}}">
-                                    <input type="submit" style="visibility: hidden; display:none" />
-
-                                    <a id="nuggetsbutton" href="/nuggets">
+                                <!-- <a id="nuggetsbutton" href="/nuggets">
                                         <button type="button" id="nuggets" class="btn btn-primary">What're others grateful for?</button>
 
-                                    </a>
+                                    </a> -->
 
-                                </div>
                             </div>
-                        </form>
+                        </div>
+                    </form>
 
-                    </div>
                 </div>
             </div>
         </div>
-
-
-    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-      integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-      crossorigin=""></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-
-    <script type="text/javascript" src="/public/javascript/scripts.js"></script>
-
-</body>
-
-</html>
+    </div>
+</div>
+<!-- </div> -->
