@@ -1,5 +1,7 @@
 # The Gratefulness Project
 
+<!-- ![Alt text](relative/path/to/img.jpg?raw=true "Title") -->
+
 CDC data show that the US suicide rate has increased by 30% since 2000. And is Suicide is now the second leading cause of death for all Americans from ages 10 to 34.
 
 However, studies reveal that the act of saying or writing what one is grateful for raises their happiness. Remembering what you're lucky to have makes you thankful and more present.
@@ -41,7 +43,7 @@ See the following medium article for details on my design process for this app
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [jhaff](https://github.com/jhaff)
+* **Jacob Haff** [jhaff](https://github.com/jhaff)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
