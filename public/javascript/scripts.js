@@ -25,19 +25,44 @@ axios.get('/nuggets')
             nuggetPoints.push({pos: [nugget.location.coordinates[0], nugget.location.coordinates[1]], popup: nugget.description});
         });
 
-        nuggetPoints.forEach(function (obj) {
-            var m = L.marker(obj.pos).addTo(map),
-                p = new L.Popup({ autoClose: false, closeOnClick: false })
-                        .setContent(obj.popup)
-                        .setLatLng(obj.pos);
-            m.bindPopup(p).openPopup();
-        });
+        // nuggetPoints.forEach(function (obj) {
+        //     var m = L.marker(obj.pos).addTo(map),
+        //         p = new L.Popup({ autoClose: false, closeOnClick: false })
+        //                 .setContent(obj.popup)
+        //                 .setLatLng(obj.pos);
+        //     m.bindPopup(p).openPopup();
+        // });
+
+        var markers = L.markerClusterGroup({ chunkedLoading: true });
+
+        for (var i = 0; i < nuggetPoints.length; i++) {
+			var nugget = nuggetPoints[i];
+			var title = nugget.popup;
+			var marker = L.marker(L.latLng(nugget.pos[0], nugget.pos[1]), { title: title });
+			marker.bindPopup(title);
+			markers.addLayer(marker);
+		}
+
+        map.addLayer(markers);
+
+
 
       })
       .catch(function (error) {
         console.log(error);
       });
 
+
+      function getRandomLatLng(map) {
+      			var bounds = map.getBounds(),
+      				southWest = bounds.getSouthWest(),
+      				northEast = bounds.getNorthEast(),
+      				lngSpan = northEast.lng - southWest.lng,
+      				latSpan = northEast.lat - southWest.lat;
+      			return new L.LatLng(
+      					southWest.lat + latSpan * Math.random(),
+      					southWest.lng + lngSpan * Math.random());
+      		}
 
 
 newNuggetForm.addEventListener("submit", e => {

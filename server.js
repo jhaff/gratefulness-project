@@ -37,7 +37,7 @@ app.post('/nuggets', (req, res) => {
         description: req.body.description,
         location: {
             type: "Point",
-            coordinates: [req.body.location[0], req.body.location[1]]
+            coordinates: req.body.location
         }
      });
 
