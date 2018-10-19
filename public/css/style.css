@@ -1,13 +1,12 @@
 .jumbotron {
-position: absolute;
-top: 50%;
-left:50%;
-transform: translate(-50%,-50%);
-background: none;
-height: 500px;
-width: 500px;
-z-index: 401;
-}
+    position: absolute;
+    top: 50%;left:50%;
+    transform: translate(-50%,-50%);
+    background: none;
+    height: 39px;
+    width: 301px;
+    z-index: 401;
+    }
 input{
   border-radius: 20px;
   radius: 20px;
@@ -24,7 +23,12 @@ input{
   align-self: center;
   display: block;
   margin: auto;
-  width: 300px;
+  position: absolute;
+  top: 50%;left:50%;
+  transform: translate(-50%,-50%);
+  height: 39px;
+  width: 301px;
+  z-index: 401;
   display: flex;
   justify-content: center;
 }
