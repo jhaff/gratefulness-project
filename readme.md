@@ -45,9 +45,6 @@ See the following medium article for details on my design process for this app
 
 * **Jacob Haff** [jhaff](https://github.com/jhaff)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-
 ## Acknowledgments
 
 * Brian Hans
