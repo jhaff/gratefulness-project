@@ -11,9 +11,33 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(map);
 
 navigator.geolocation.getCurrentPosition(function(position) {
-map.setView([position.coords.latitude, position.coords.longitude], 13);
-userPosition = position
-});
+        map.setView([position.coords.latitude, position.coords.longitude], 13);
+        userPosition = position;
+        userPositionLat = position.coords.latitude;
+        userPositionLong = position.coords.longitude;
+        console.log("Position Set");
+    });
+
+axios.get('/nuggets')
+      .then(function (response) {
+
+        response.data.nuggets.forEach( (nugget) => {
+            nuggetPoints.push({pos: [nugget.location.coordinates[0], nugget.location.coordinates[1]], popup: nugget.description});
+        });
+
+        nuggetPoints.forEach(function (obj) {
+            var m = L.marker(obj.pos).addTo(map),
+                p = new L.Popup({ autoClose: false, closeOnClick: false })
+                        .setContent(obj.popup)
+                        .setLatLng(obj.pos);
+            m.bindPopup(p).openPopup();
+        });
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
 
 
 newNuggetForm.addEventListener("submit", e => {
@@ -25,9 +49,18 @@ newNuggetForm.addEventListener("submit", e => {
     if ($.trim(item) === '') {
         alert("Please Enter Something!");
     } else {
-        let nugget = $(newNuggetForm).serialize();
+        // let nugget = $(newNuggetForm).serialize();
 
-        nuggetPoints.push({pos: [userPosition.coords.latitude, userPosition.coords.longitude], popup: item});
+        const nuggetDescription = $('#nugget-description').val();
+
+        var body = {
+            description: nuggetDescription,
+            location: [userPositionLat, userPositionLong]
+        }
+
+        // console.log(nugget);
+
+        nuggetPoints.push({pos: [userPositionLat, userPositionLong], popup: item});
 
         nuggetPoints.forEach(function (obj) {
             var m = L.marker(obj.pos).addTo(map),
@@ -36,14 +69,13 @@ newNuggetForm.addEventListener("submit", e => {
                         .setLatLng(obj.pos);
             m.bindPopup(p).openPopup();
 
-
-        axios.post(`/nuggets`, nugget)
+            });
+        axios.post(`/nuggets`, body)
             .then(function(response) {
                 console.log(response);
             }).catch(function(error){
                 console.log(error);
             });
-    });
 }});
 
 

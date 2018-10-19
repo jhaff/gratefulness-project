@@ -20,7 +20,9 @@ app.set('view engine', 'handlebars');
 app.use(methodOverride('_method'));
 
 // The following line must appear AFTER const app = express() and before routes!
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/public', express.static('./public'))
 
 app.use(commentsController);
@@ -31,9 +33,19 @@ mongoose.connect(mongoUri, { useNewUrlParser: true });
 
 // CREATE
 app.post('/nuggets', (req, res) => {
-    Nugget.create(req.body).then(nugget => {
-      res.status(200).send({ nugget: comment });
+    var nugget = new Nugget({
+        description: req.body.description,
+        location: {
+            type: "Point",
+            coordinates: [req.body.location[0], req.body.location[1]]
+        }
+     });
+
+
+    Nugget.create(nugget).then(nugget => {
+      res.status(200).send({ nugget });
     }).catch((err) => {
+        console.log(err);
       res.status(400).send({ err: err })
     })
 });
@@ -108,15 +120,12 @@ app.get('/', (req, res) => {
 
 //INDEX
 app.get('/nuggets', (req, res) => {
-    Nugget.find()
-        .then(nuggets => {
-            res.render('nuggets-index', {
-                nuggets: nuggets
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    Nugget.find().then((nuggets) => {
+        res.status(200).send({ nuggets });
+    }).catch((err) => {
+          console.log(err);
+        res.status(400).send({ err: err })
+    })
 })
 
 module.exports = app.listen(port, () => {
