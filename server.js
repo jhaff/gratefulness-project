@@ -121,6 +121,19 @@ app.get('/', (req, res) => {
 //INDEX
 app.get('/nuggets', (req, res) => {
     Nugget.find().then((nuggets) => {
+        res.render('nuggets-index', {
+            nuggets: nuggets
+        });
+
+        //res.status(200).send({ nuggets });
+    }).catch((err) => {
+          console.log(err);
+        res.status(400).send({ err: err })
+    })
+})
+
+app.get('/nuggets.json', (req, res) => {
+    Nugget.find().then((nuggets) => {
         res.status(200).send({ nuggets });
     }).catch((err) => {
           console.log(err);

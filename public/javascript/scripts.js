@@ -4,7 +4,7 @@ var map = L.map('map').setView([51.505, -0.09], 3);
 var nuggetPoints = [];
 var markers = L.markerClusterGroup({
     chunkedLoading: true,
-    spiderfyOnMaxZoom: false
+    spiderfyOnMaxZoom: true
 });
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -22,7 +22,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
     console.log("Position Set");
 });
 
-axios.get('/nuggets')
+axios.get('/nuggets.json')
     .then(function(response) {
 
         response.data.nuggets.forEach((nugget) => {
@@ -46,7 +46,7 @@ axios.get('/nuggets')
             var marker = L.marker(L.latLng(nugget.pos[0], nugget.pos[1]), {
                 title: title
             });
-            marker.bindPopup(title);
+            marker.bindPopup(title).openPopup();
             markers.addLayer(marker);
         }
 
@@ -87,17 +87,17 @@ newNuggetForm.addEventListener("submit", e => {
             popup: item
         });
 
-        nuggetPoints.forEach(function(obj) {
-            var m = L.marker(obj.pos).addTo(map),
+        // nuggetPoints.forEach(function(obj) {
+            var m = L.marker(body.location).addTo(map),
                 p = new L.Popup({
                     autoClose: false,
                     closeOnClick: false
                 })
-                .setContent(obj.popup)
-                .setLatLng(obj.pos);
+                .setContent(body.description)
+                .setLatLng(body.location);
             m.bindPopup(p).openPopup();
 
-        });
+        // });
         axios.post(`/nuggets`, body)
             .then(function(response) {
                 console.log(response);
