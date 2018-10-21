@@ -107,6 +107,13 @@ newNuggetForm.addEventListener("submit", e => {
     }
 });
 
+// function deleteNugget(index) {
+//     let nuggetId = document.getElementById("deleteNugget" + index).getAttribute("nugget-id");
+//     axios.delete('/admin/nuggets/' + reviewId).then(function(response) {
+//         console.log(response);
+//         document.getElementById("admin-" + nuggetId).remove();
+//     });
+// }
 
 // $('form').each(function() {
 //     $('input').keypress(function(e) {
